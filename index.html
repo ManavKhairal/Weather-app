@@ -56,8 +56,9 @@ async function checkWeather(city) {
         if (!response.ok) {
             throw new Error(`http error status : ${response.status}`)
         }
-        
+
          
+        
 
 
         document.querySelector(".city").innerHTML =  `${data.name}  `; 
