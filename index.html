@@ -48,33 +48,31 @@ let searchButton = document.querySelector(".search button")
 
 
 async function checkWeather(city) {
-    
     try {
-        const response = await fetch(apiUrl + city + `&appid=${apiKey}` )
-        var data = await response.json()
+        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+        var data = await response.json();
 
         if (!response.ok) {
-            throw new Error(`http error status : ${response.status}`)
+            throw new Error(`HTTP error status: ${response.status}`);
         }
 
-         
-        
+        // Hide error message on successful fetch
+        document.querySelector(".error").style.display = "none";
 
-
-        document.querySelector(".city").innerHTML =  `${data.name}  `; 
-    document.querySelector(".temp").innerHTML = `${data.main.temp}°C`;
-    document.querySelector(".humidity").innerHTML = `${data.main.humidity}%`;
-    document.querySelector(".wind").innerHTML = `${data.wind.speed}km/h`;
-    document.querySelector(".weather img").src = `images/${data.weather[0].main}.png`
-    document.querySelector(".weather").style.display = "block"
-
+        document.querySelector(".city").innerHTML = `${data.name}`;
+        document.querySelector(".temp").innerHTML = `${data.main.temp}°C`;
+        document.querySelector(".humidity").innerHTML = `${data.main.humidity}%`;
+        document.querySelector(".wind").innerHTML = `${data.wind.speed}km/h`;
+        document.querySelector(".weather img").src = `images/${data.weather[0].main}.png`;
+        document.querySelector(".weather").style.display = "block";
     } catch (error) {
-        console.error("Error fetching weather data:", error); // Log the actual error
-        document.querySelector(".error").style.display = "block"
-
+        console.error("Error fetching weather data:", error);
+        document.querySelector(".error").innerText = "Invalid Entry! Please enter a valid city.";
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".weather").style.display = "none"; // Hide weather data on error
     }
-
 }
+
 
 searchButton.addEventListener("click", ()=> {
 
